@@ -8,7 +8,8 @@ import './chat.css';
 //TODO TIRAR ESSA CONEXAO DAQUI!!!!!!!!! ela deve ser alocada em uma classe unica -> Cainã
 
 const socket = openSocket('http://localhost:3001/', {transports: ['websocket']});
-    
+socket.on("chat", (user, mensagem) => {  addResponseMessage(mensagem) });
+
 const Chat = (props) => {
     const [ usage, setUsage ] = useState(false);
 
@@ -19,18 +20,15 @@ const Chat = (props) => {
         }
         socket.emit("send", newMessage);
     }
-
-    socket.on("chat", (user, mensagem) => { addResponseMessage(mensagem) });
+    
     return (
-     <div>
-        <Widget
-          handleNewUserMessage={handleNewUserMessage}
-          titleAvata={props.user}
-          title={`Bem vindo ${props.user}`}
-          subtitle=''
-          senderPlaceHolder='Digite a mensagem...'
-        />
-     </div>
+      <Widget
+        handleNewUserMessage={handleNewUserMessage}
+        titleAvata={props.user}
+        title={`Bem vindo ${props.user}`}
+        subtitle=''
+        senderPlaceHolder='Digite a mensagem...'
+      />
     );
 }
 export default Chat;
