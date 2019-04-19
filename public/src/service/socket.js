@@ -16,3 +16,45 @@
 //    }
 //
 //no caso adaptala para o socket-IO
+
+const setupWebSocket = ( dispatch, req ) => {
+    const action = req.actions;
+
+    const ws = new WebSocket(`ws://localhost:3001`);
+    console.log(`[ WS - ws://localhost:3001 ]`)
+
+    if(req){
+        ws.onopen = () => {
+            ws.send(JSON.stringify({
+                Requisicao: type,
+                Mensagem: msg
+            }))
+        }
+    }
+
+
+    ws.onmessage = ( event ) => {
+        const data = JSON.parse(event.data);
+        switch(action.type){
+            case 'EnviarMsg':
+                dispatch(/* SALVANDO NO CONTEXT */)
+            break;
+            default:
+                return ws.close();
+        }
+    }
+
+    ws.onerror = (error) => {
+        switch(action.error){
+            case 'MsgNaoEnviada':
+                dispatch(/* SALVANDO NO CONTEXT */)
+            break;
+            default:
+                return ws.close();
+        }
+    }
+
+    return ws;
+};
+
+export default setupWebSocket;
