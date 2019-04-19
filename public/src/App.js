@@ -1,32 +1,27 @@
 import React, { Component } from 'react';
 import Chat from './component/chat';
-import openSocket from 'socket.io-client';
 import logo from './logo.svg';
 import './App.css';
 
+import { Input } from 'semantic-ui-react';
+
 class App extends Component {
-  componentDidMount(){
-    const socket = openSocket('http://localhost:3001/', {transports: ['websocket']});
-    const name ='andre';
-    socket.emit("join", name);
+  state = {
+    user: ''
   }
+  handleChange =  (event) => { console.log(event.target.value) || this.setState({ user: event.target.value }) }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <Chat />
           <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <Input
+            placeholder='Entre com o usuário'
+            onChange={this.handleChange.bind(this)}
+          />
+          <Chat user={this.state.user}/>
+
         </header>
       </div>
     );

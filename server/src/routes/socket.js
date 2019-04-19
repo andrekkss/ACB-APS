@@ -16,7 +16,7 @@ module.exports = {
         socket.on("disconnect", function(){
             console.log("Disconnect");
             io.emit("update", clients[socket.id] + " has left the server.");
-           // delete clients[client.id];
+            delete clients[client.id];
           });
         });
     },

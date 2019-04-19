@@ -5,7 +5,6 @@
  */
 
 var main = require('../app');
-console.log(main);
 var debug = require('debug')('server:server');
 var http = require('http');
 

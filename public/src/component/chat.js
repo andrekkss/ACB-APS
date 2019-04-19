@@ -1,55 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import openSocket from 'socket.io-client';
-import { ThemeProvider } from '@livechat/ui-kit'
+import { Widget, addResponseMessage} from 'react-chat-widget';
+
+import 'react-chat-widget/lib/styles.css';
+import './chat.css';
+
+//TODO TIRAR ESSA CONEXAO DAQUI!!!!!!!!! ela deve ser alocada em uma classe unica -> Cainã
 
 const socket = openSocket('http://localhost:3001/', {transports: ['websocket']});
+    
+const Chat = (props) => {
+    const [ usage, setUsage ] = useState(false);
 
-const theme = {
-    vars: {
-        'primary-color': '#427fe1',
-        'secondary-color': '#fbfbfb',
-        'tertiary-color': '#fff',
-        'avatar-border-color': 'blue',
-    },
-    AgentBar: {
-        Avatar: {
-            size: '42px',
-        },
-        css: {
-            backgroundColor: 'var(--secondary-color)',
-            borderColor: 'var(--avatar-border-color)',
-        }
-    },
-    Message: {
-        css: {
-            fontWeight: 'bold',
-        },
-    },
-    vars: {
-            'primary-color': 'red',
-    },
-    Avatar: {
-        size: '40px', // special Avatar's property, supported by this component
-        css: { // css object with any CSS properties
-            borderColor: 'blue',
-        },
-    },
-    TextComposer: {
-        css: {
-            'color': '#000',
-        },
-    },
-}
-
-const Chat = () => {
     const handleNewUserMessage = (newMessage) => {
-        console.log(`New message incoming! ${newMessage}`);
+        if(usage === false){
+          socket.emit("join", props.user);
+          setUsage(true);
+        }
         socket.emit("send", newMessage);
     }
-    socket.emit("join", 'De');
+
+    socket.on("chat", (user, mensagem) => { addResponseMessage(mensagem) });
     return (
      <div>
-       
+        <Widget
+          handleNewUserMessage={handleNewUserMessage}
+          titleAvata={props.user}
+          title={`Bem vindo ${props.user}`}
+          subtitle=''
+          senderPlaceHolder='Digite a mensagem...'
+        />
      </div>
     );
 }
