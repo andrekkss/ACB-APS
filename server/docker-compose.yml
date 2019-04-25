@@ -1,11 +1,14 @@
-version: "2"
+version: "3"
 services:
-  web:
+  app:
     build: .
+    command: npm start
     ports:
-    - "8080:8080"
+    - "3001:3001"
     depends_on:
     - mongo
+    volumes:
+    - .:/usr/app
   mongo:
     image: mongo
     ports:
@@ -13,4 +16,4 @@ services:
     volumes:
     - data-volume:/data/db
 volumes:
-  data-volume:
+  data-volume:     

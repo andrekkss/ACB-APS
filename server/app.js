@@ -7,7 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./src/routes/index');
 
 //command for socket
-var chat = require('./src/routes/chat');
+var socket = require('./src/routes/socket');
 
 var app = express();
 
@@ -21,5 +21,5 @@ app.use('/', indexRouter);
 
 module.exports = {
     app: app,
-    command: chat
+    command: socket
 }
