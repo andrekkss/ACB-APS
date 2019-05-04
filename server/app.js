@@ -2,6 +2,7 @@ var express = require('express');
 var cors = require('cors')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var service = require('./src/service/requisicao');
 
 //router for express
 var indexRouter = require('./src/routes/index');
