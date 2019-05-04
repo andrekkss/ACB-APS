@@ -10,6 +10,8 @@ var indexRouter = require('./src/routes/index');
 //command for socket
 var socket = require('./src/routes/socket');
 
+service();
+
 var app = express();
 
 app.use(logger('dev'));
