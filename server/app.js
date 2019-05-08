@@ -2,7 +2,7 @@ var express = require('express');
 var cors = require('cors')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var service = require('./src/service/requisicao');
+//var service = require('./src/service/requisicao');
 
 //router for express
 var indexRouter = require('./src/routes/index');
@@ -10,7 +10,7 @@ var indexRouter = require('./src/routes/index');
 //command for socket
 var socket = require('./src/routes/socket');
 
-service();
+//service();
 
 var app = express();
 
