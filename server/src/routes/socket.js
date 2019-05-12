@@ -1,5 +1,3 @@
-const User = require('../models/user');
-
 module.exports = {
     start: function(io){
         var clients = {}; 
@@ -10,15 +8,6 @@ module.exports = {
             socket.emit("update", "Você foi desconectado do servidor.");
             socket.broadcast.emit("update", name + " Conectado.")
         });
-        socket.on("cadastro", function(cadastro){
-            try{
-                console.log(JSON.stringify(cadastro));
-                const user = User.create(cadastro);
-                socket.emit(user);
-            }catch(err){
-                socket.emit(err);
-            }
-        });
         socket.on("send", function(msg){
             console.log("Messagem: " + msg);
             socket.broadcast.emit("chat", clients[socket.id], msg);
@@ -26,7 +15,6 @@ module.exports = {
         socket.on("disconnect", function(){
             console.log("Disconnectado ");
             io.emit("update", clients[socket.id] + " Saiu.");
-            delete clients[client.id];
           });
         });
     }

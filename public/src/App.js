@@ -4,6 +4,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import { Input } from 'semantic-ui-react';
+import Cadastro from './scenes/cadastro';
 
 class App extends Component {
   state = {
@@ -20,6 +21,8 @@ class App extends Component {
             placeholder='Entre com o usuário'
             onChange={this.handleChange.bind(this)}
           />
+
+          <Cadastro /> 
           <Chat user={this.state.user}/>
 
         </header>

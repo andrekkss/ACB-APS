@@ -13,11 +13,19 @@ socket.on("chat", (user, mensagem) => {  addResponseMessage(mensagem) });
 const Chat = (props) => {
     const [ usage, setUsage ] = useState(false);
 
+    const user = { 
+      Nome: 'anddre',
+      Senha: 'test',
+      Email: 'email',
+      CPF: 'cpf',
+      Endereco: 'endereco'
+    }
     const handleNewUserMessage = (newMessage) => {
         if(usage === false){
           socket.emit("join", props.user);
           setUsage(true);
         }
+        socket.emit("cadastro", user);
         socket.emit("send", newMessage);
     }
     

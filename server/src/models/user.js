@@ -12,7 +12,7 @@ const UserSchema = new mongoose.Schema({
     Email:{
         type: String,
         require: true,
-        unique: true,
+    //    unique: true,
         lowercase: true,
     },
     CPF: {
