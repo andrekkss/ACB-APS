@@ -1,24 +1,25 @@
-import React from 'react';
 import axios from 'axios';
 
 let valid = {};
 const loginStore = async (values) => {
-    const resp = authentic(values.user, values.password)
-    .then(resp => {return resp })
+    const resp = await authentic(values.user, values.password)
+    .then(resp => { return resp.data })
     .catch(err => console.log(err));
     if(resp.on){
         valid = {
             user: values.user,
-            online: resp.on
+            online: resp.on,
+            msg: resp.message
         }
     }else{
         valid = {
             user: values.user,
-            online: resp.on
+            online: resp.on,
+            msg: resp.message
         }
     }
     await localStorage.setItem(values.user, valid);
-    return resp.on;
+    return valid;
 }
 
 const authentic = async (user, password) => {
