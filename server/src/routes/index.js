@@ -3,8 +3,17 @@ var router  = express.Router();
 var Climamodel   = require('../models/clima'); 
 var UserModel = require('../models/user');      
 
-router.get('/getData', async function(req, res, next) {
+router.get('/getAllUsers', async function(req, res, next) {
   UserModel.find({}, function(err, data){
+    if(!err){
+      res.send({ data });
+      process.exit();
+    } else { res.send({ err });}
+  })
+});
+
+router.get('/getAllClima', async function(req, res, next) {
+  Climamodel.find({}, function(err, data){
     if(!err){
       res.send({ data });
       process.exit();
@@ -31,8 +40,7 @@ router.get('/login', async function(req, res, next){
 router.post('/cadastro', async function(req, res, next){
   try{ 
     const user = await UserModel.create(req.body.cadastro);
-    console.log(req.body.cadastro);
-    res.send({ user, msg: 'Cadastro efetuado com sucesso'});
+    res.send({ user, msg: 'Cadastro efetuado com sucessoos'});
   }catch(err){
     console.log(err);
     res.send({ err });
