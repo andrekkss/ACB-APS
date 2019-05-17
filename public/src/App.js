@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import Chat from './component/chat';
-import CenteredTabs from './component/tab';
-import SimpleAppBar from './component/bar';
-import logo from './logo.svg';
+import Chat from './component/chat/chat';
+import CenteredTabs from './component/tab/tab';
+import SimpleAppBar from './component/bar/bar';
 import './App.css';
-import './Cadastro.css'
 
 import { Input } from 'semantic-ui-react';
 import Cadastro from './scenes/cadastro';
+import Login from './component/login/login';
 
 import local from './service/local.store';
 
@@ -28,30 +27,21 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-
+      <div>
         <SimpleAppBar/>
         <CenteredTabs/>
-        <header className="App-header">
 
-        {/* <div class="login-wrap"> }
-          <h2>Login</h2>
-          
-          <div class="form">
-            <input type="text" placeholder="Username" name="un" />
-            <input type="password" placeholder="Password" name="pw" />
-            <button> Sign in </button>
-            <a href="#"> <p> Don't have an account? Register </p></a>
-          </div>
-        </div> */}
-      <Input 
-        placeholder='Entre com o usuario'
-        onChange={this.handleChange.bind(this)}
-      />
+        <div className="mainContainer">
+          {/* <Login/> */}
+          <Input 
+          placeholder='Entre com o usuario'
+          onChange={this.handleChange.bind(this)}
+          />
 
-      <Cadastro/>
-      <Chat user={this.state.user}/>
-      </header>
+        {/* <Cadastro/> */}
+        
+        </div>
+        <Chat user={this.state.user}/>
       </div>
     );
   }

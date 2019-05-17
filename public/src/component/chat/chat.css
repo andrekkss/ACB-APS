@@ -1,0 +1,12 @@
+
+.rcw-message > .rcw-response {
+    background-color: #777777;
+    color: white;
+}
+.rcw-message{
+    word-wrap: break-word;
+}
+input.rcw-new-message{
+    margin: 2%;
+    padding: 0px;   
+}

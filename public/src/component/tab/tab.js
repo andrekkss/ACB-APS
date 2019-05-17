@@ -3,20 +3,12 @@ import { makeStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { cyan } from '@material-ui/core/colors';
-import App from '../App';
+import App from '../../App';
 
 
 
 function CenteredTabs() {
   const [value, setValue] = React.useState(0);
-
-  const theme = createMuiTheme({
-    palette:{
-      primary: cyan,
-    }
-  });
-
 
   function handleChange(event, newValue) {
     setValue(newValue);

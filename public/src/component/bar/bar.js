@@ -1,12 +1,11 @@
 import React from 'react';
-import * as style from './bar.module.css';
+import './bar.css';
 import Typography from '@material-ui/core/Typography';
 
 function SimpleAppBar() {
-
   return (
-    <div className="Bar">
-        <Typography className="Bar-header" variant="h2" color="inherit">
+    <div className='Bar'>
+        <Typography variant="h2" color="inherit">
             Titulo
         </Typography>
     </div>

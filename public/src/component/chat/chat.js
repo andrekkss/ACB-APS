@@ -32,7 +32,6 @@ const Chat = (props) => {
     return (
       <Widget
         handleNewUserMessage={handleNewUserMessage}
-        titleAvata={props.user}
         title={`Bem vindo ${props.user}`}
         subtitle=''
         senderPlaceHolder='Digite a mensagem...'
