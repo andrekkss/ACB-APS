@@ -6,32 +6,33 @@ import './App.css';
 
 import GoogleMapReact from 'google-map-react';
 
-import { Input } from 'semantic-ui-react';
-import Cadastro from './scenes/cadastro';
-import Login from './component/login/login';
-
-import local from './service/local.store';
 import Axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCloud, faCloudRain, faSnowflake, faCloudSun, faCloudSunRain} from '@fortawesome/free-solid-svg-icons'
 
+const AnyReactComponent = ({ temp }) => <div>{list[temp]}</div>;
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
+const list = {
+  Clouds:   <FontAwesomeIcon icon={faCloud}  color="#9FF5F7"/>,
+  Drizzle:  <FontAwesomeIcon icon={faCloudSunRain}  color="#A7ACAC"/>,
+  Rain:     <FontAwesomeIcon icon={faCloudRain}  color="#1482F0"/>,
+  Snow:     <FontAwesomeIcon icon={faSnowflake}  color="#74AFEB"/>,
+  Clear:    <FontAwesomeIcon icon={faCloudSun}  color="#B2BD00"/>,
+}
 
 class App extends Component {
   state = {
-    user: '',
+    user: 'adm',
     dados: { data: {} }  
   }
   
   static defaultProps = {
     center: {
-      lat: 59.95,
-      lng: 30.33
+      lat: -14.23,
+      lng: -51.92
     },
-    zoom: 5
+    zoom: 4
   };
-
-  handleChange =  (event) => { console.log(event.target.value) || this.setState({ user: event.target.value }) }
 
   async componentDidMount(){
     //const values = { user: 'anddre', password: 'AIzaSyCY6fx5zZF6FSoDM9dpaOfN15HqNGPZyGo'} 
@@ -48,13 +49,7 @@ class App extends Component {
       <div>
         <SimpleAppBar/>
         <CenteredTabs/>
-
         <div className="mainContainer">
-          {/* <Login/> */}
-          {/* <Input 
-          placeholder='Entre com o usuario'
-          onChange={this.handleChange.bind(this)}
-          /> */}
           <div style={{ height: '100vh', width: '100%' }}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: 'AIzaSyCY6fx5zZF6FSoDM9dpaOfN15HqNGPZyGo' }}
@@ -66,15 +61,13 @@ class App extends Component {
                   <AnyReactComponent
                     lat={values.Cordenadas.lat}
                     lng={values.Cordenadas.lon}
-                    text={values.Cidade}
+                    temp={values.Clima}
                   />
                 );
               })}
             </GoogleMapReact>
           </div>
-        {/* <Cadastro/> */}
         </div>
-        
         <Chat user={this.state.user}/>
       </div>
     );
