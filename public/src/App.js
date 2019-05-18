@@ -11,6 +11,7 @@ import Cadastro from './scenes/cadastro';
 import Login from './component/login/login';
 
 import local from './service/local.store';
+import Axios from 'axios';
 
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
@@ -18,9 +19,10 @@ const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 class App extends Component {
   state = {
-    user: ''
+    user: '',
+    dados: { data: {} }  
   }
-
+  
   static defaultProps = {
     center: {
       lat: 59.95,
@@ -31,16 +33,17 @@ class App extends Component {
 
   handleChange =  (event) => { console.log(event.target.value) || this.setState({ user: event.target.value }) }
 
-  componentDidMount(){
-    const values = { user: 'anddre', password: 'AIzaSyCY6fx5zZF6FSoDM9dpaOfN15HqNGPZyGo'} 
-    local(values).then(resp => console.log('dsadas ' + JSON.stringify(resp))).catch(err => console.log(err)); 
+  async componentDidMount(){
+    //const values = { user: 'anddre', password: 'AIzaSyCY6fx5zZF6FSoDM9dpaOfN15HqNGPZyGo'} 
+    //local(values).then(resp => console.log('dsadas ' + JSON.stringify(resp))).catch(err => console.log(err)); 
 
-    const test = localStorage.getItem(values.user);
+    //const test = localStorage.getItem(values.user);
 
-    console.log(test);
+    await Axios.get('http://localhost:3001/getAllClima').then(values => this.setState({ dados: values.data})).catch(err =>  console.log(err));
   }
 
   render() {
+    console.log(JSON.stringify(this.state.dados));
     return (
       <div>
         <SimpleAppBar/>
@@ -58,11 +61,15 @@ class App extends Component {
               defaultCenter={this.props.center}
               defaultZoom={this.props.zoom}
             >
-              <AnyReactComponent
-                lat={59.955413}
-                lng={30.337844}
-                text="My Marker"
-              />
+              {Object.values(this.state.dados.data).map(values => {
+                return(
+                  <AnyReactComponent
+                    lat={values.Cordenadas.lat}
+                    lng={values.Cordenadas.lon}
+                    text={values.Cidade}
+                  />
+                );
+              })}
             </GoogleMapReact>
           </div>
         {/* <Cadastro/> */}

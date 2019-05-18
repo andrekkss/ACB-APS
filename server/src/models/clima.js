@@ -1,11 +1,19 @@
 const mongoose = require('../database');
 
 const climaSchema = new mongoose.Schema({
+    Cidade: {
+        type: String,
+        require: true
+    },
     Cordenadas: {
         lon: { type: String },
         lat: { type: String }
     },
     Clima: {
+        type: String,
+        require: true,
+    },
+    Descricao: {
         type: String,
         require: true,
     },
