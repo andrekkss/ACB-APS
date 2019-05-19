@@ -9,11 +9,14 @@ import Button from '@material-ui/core/Button';
 const styles = theme => ({
   paper: {
     position: 'absolute',
+    left:'47%',
+    top:'60%',
+    margin:'-200px',
     width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: 'white',
     boxShadow: theme.shadows[5],
     padding: theme.spacing.unit * 4,
-    outline: 'none',
+    //outline: 'none',
   },
 });
 
@@ -61,6 +64,7 @@ class SimpleModal extends React.Component {
     return (
       <div>
         <Modal
+          
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={authentic}
