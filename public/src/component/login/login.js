@@ -1,28 +1,105 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import TextField from '@material-ui/core/TextField';
+import local from '../../service/local.store';
+import Button from '@material-ui/core/Button';
 
+const styles = theme => ({
+  paper: {
+    position: 'absolute',
+    width: theme.spacing.unit * 50,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing.unit * 4,
+    outline: 'none',
+  },
+});
 
-class Login extends Component{
-    state={
-        user:'',
-        senha:'',
+class SimpleModal extends React.Component {
+  state = {
+    login: '',
+    password: '',
+    local: false,
+    open: true
+  }
+
+  async componentDidMount(){
+    let keys = Object.keys(localStorage),
+    i = keys.length, valid = false;
+
+    while ( i-- ) {
+        let resp = localStorage.getItem(keys[i]);
+        let on   = JSON.parse(resp);
+        if(on.online == true){
+          valid = on.online;
+          break;
+        }
     }
+    if(valid) this.setState({ open: false, local: true });
+  };
 
-    handleChange =  (event) => { console.log(event.target.value) || this.setState({ user: event.target.value }) }
+  handleLogin=async()=>{
+    const values = { user: this.state.login, password: this.state.password };
+    await local(values); 
 
-    render(){
-        return(
-        <div> 
-          <h2>Login</h2>
-          
-          <div >
-            <input type="text" placeholder="Username" name="un" />
-            <input type="password" placeholder="Password" name="pw" />
-            <button> Sign in </button>
-            <a href="#"> <p> Don't have an account? Register </p></a>
+    const resp = localStorage.getItem(values.user);
+    const validation = JSON.parse(resp);
+    if(validation.online == true){
+      this.setState({ open: false, local: true });
+    }
+  }
+
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value });
+  };
+
+  render() {
+    const { classes } = this.props;
+    const authentic = this.state.local == false ? this.props.open : this.state.open;
+    return (
+      <div>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={authentic}
+         
+        >
+          <div className={classes.paper}>
+            <TextField
+              id="outlined-email-input"
+              label="Login"
+              name="user"
+              margin="normal"
+              variant="outlined"
+              value={this.state.login}
+              onChange={this.handleChange('login')}
+            />
+            <TextField
+              id="outlined-password-input"
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              margin="normal"
+              variant="outlined"
+              value={this.state.password}
+              onChange={this.handleChange('password')}
+            />
+            <Button onClick={this.handleLogin}>Login</Button>
+            <Button>Cadastrar</Button>
+            <SimpleModalWrapped />
           </div>
-        </div>
-        )
-    }
+        </Modal>
+      </div>
+    );
+  }
 }
 
-export default Login;
+SimpleModal.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+const SimpleModalWrapped = withStyles(styles)(SimpleModal);
+
+export default SimpleModalWrapped;

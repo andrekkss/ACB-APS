@@ -6,7 +6,7 @@ function SimpleAppBar() {
   return (
     <div className='Bar'>
         <Typography variant="h2" color="inherit">
-            Titulo
+          Como está o tempo??
         </Typography>
     </div>
   );

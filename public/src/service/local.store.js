@@ -18,7 +18,7 @@ const loginStore = async (values) => {
             msg: resp.message
         }
     }
-    await localStorage.setItem(values.user, valid);
+    await localStorage.setItem(values.user, JSON.stringify(valid));
     return valid;
 }
 

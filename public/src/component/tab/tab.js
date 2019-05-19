@@ -6,7 +6,6 @@ import Tab from '@material-ui/core/Tab';
 import App from '../../App';
 
 
-
 function CenteredTabs() {
   const [value, setValue] = React.useState(0);
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Chat from './component/chat/chat';
 import CenteredTabs from './component/tab/tab';
 import SimpleAppBar from './component/bar/bar';
+import Login from './component/login/login';
 import './App.css';
 
 import GoogleMapReact from 'google-map-react';
@@ -22,8 +23,9 @@ const list = {
 
 class App extends Component {
   state = {
-    user: 'adm',
-    dados: { data: {} }  
+    user: '',
+    dados: { data: {} },
+    open: true
   }
   
   static defaultProps = {
@@ -35,20 +37,13 @@ class App extends Component {
   };
 
   async componentDidMount(){
-    //const values = { user: 'anddre', password: 'AIzaSyCY6fx5zZF6FSoDM9dpaOfN15HqNGPZyGo'} 
-    //local(values).then(resp => console.log('dsadas ' + JSON.stringify(resp))).catch(err => console.log(err)); 
-
-    //const test = localStorage.getItem(values.user);
-
     await Axios.get('http://localhost:3001/getAllClima').then(values => this.setState({ dados: values.data})).catch(err =>  console.log(err));
   }
 
   render() {
-    console.log(JSON.stringify(this.state.dados));
     return (
       <div>
-        <SimpleAppBar/>
-        <CenteredTabs/>
+        <Login open={this.state.open} />
         <div className="mainContainer">
           <div style={{ height: '100vh', width: '100%' }}>
             <GoogleMapReact
