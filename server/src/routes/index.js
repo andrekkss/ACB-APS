@@ -1,9 +1,9 @@
 var express = require('express');
-var router  = express.Router();
+var socket  = express.Router();
 var Climamodel   = require('../models/clima'); 
 var UserModel = require('../models/user');      
 
-router.get('/getAllUsers', async function(req, res, next) {
+socket.get('/getAllUsers', async function(req, res, next) {
   UserModel.find({}, function(err, data){
     if(!err){
       res.send({ data });
@@ -11,7 +11,7 @@ router.get('/getAllUsers', async function(req, res, next) {
   })
 });
 
-router.get('/getAllClima', async function(req, res, next) {
+socket.get('/getAllClima', async function(req, res, next) {
   await Climamodel.find({}, function(err, data){
     if(!err){
       res.send({ data });
@@ -19,14 +19,14 @@ router.get('/getAllClima', async function(req, res, next) {
   })
 });
 
-router.get('/deleteAllClima', async function(req, res, next){
+socket.get('/deleteAllClima', async function(req, res, next){
   await Climamodel.remove({},function(err,numberRemoved){
     console.log("Dados sendo excluidos" + JSON.stringify(numberRemoved));
   });
   res.send('Todos deletados.');
 });
 
-router.get('/login', async function(req, res, next){
+socket.get('/login', async function(req, res, next){
   let on = false;
   let message = 'Usuário não encontrado';
   const user = await UserModel.findOne({ Nome: req.query.user });
@@ -42,7 +42,7 @@ router.get('/login', async function(req, res, next){
   res.send({ on, message });  
 });
 
-router.post('/cadastro', async function(req, res, next){
+socket.post('/cadastro', async function(req, res, next){
   try{ 
     const user = await UserModel.create(req.body.cadastro);
     res.send({ user, msg: 'Cadastro efetuado com sucessoos'});
@@ -52,4 +52,4 @@ router.post('/cadastro', async function(req, res, next){
   }
 });
 
-module.exports = router;
+module.exports = socket;
