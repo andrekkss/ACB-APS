@@ -5,6 +5,7 @@ import Modal from '@material-ui/core/Modal';
 import TextField from '@material-ui/core/TextField';
 import local from '../../service/local.store';
 import Button from '@material-ui/core/Button';
+import Cadastro from '../../scenes/cadastro';
 
 const styles = theme => ({
   paper: {
@@ -25,7 +26,8 @@ class SimpleModal extends React.Component {
     login: '',
     password: '',
     local: false,
-    open: true
+    open: true,
+    cadastro: false
   }
 
   async componentDidMount(){
@@ -53,6 +55,10 @@ class SimpleModal extends React.Component {
       this.setState({ open: false, local: true });
     }
   }
+  
+  handleCadastro=()=>{
+    this.setState({ cadastro: !this.state.cadastro });
+  }
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value });
@@ -64,35 +70,46 @@ class SimpleModal extends React.Component {
     return (
       <div>
         <Modal
-          
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
           open={authentic}
-         
         >
           <div className={classes.paper}>
-            <TextField
-              id="outlined-email-input"
-              label="Login"
-              name="user"
-              margin="normal"
-              variant="outlined"
-              value={this.state.login}
-              onChange={this.handleChange('login')}
-            />
-            <TextField
-              id="outlined-password-input"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              margin="normal"
-              variant="outlined"
-              value={this.state.password}
-              onChange={this.handleChange('password')}
-            />
-            <Button onClick={this.handleLogin}>Login</Button>
-            <Button>Cadastrar</Button>
-            <SimpleModalWrapped />
+            {!this.state.cadastro ?
+              <div> <TextField
+                id="outlined-email-input"
+                label="Login"
+                name="user"
+                margin="normal"
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={this.state.login}
+                onChange={this.handleChange('login')}
+              />
+              <TextField
+                id="outlined-password-input"
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                margin="normal"
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                value={this.state.password}
+                onChange={this.handleChange('password')}
+              />
+              <div>
+                <Button onClick={this.handleLogin}>Login</Button>
+                <Button onClick={this.handleCadastro}>Cadastrar</Button>
+                <SimpleModalWrapped />
+              </div> 
+              </div>
+              : 
+              <Cadastro action={this.handleCadastro}/>
+            }
           </div>
         </Modal>
       </div>

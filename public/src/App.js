@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Chat from './component/chat/chat';
-import CenteredTabs from './component/tab/tab';
-import SimpleAppBar from './component/bar/bar';
 import Login from './component/login/login';
 import './App.css';
 
@@ -10,8 +8,16 @@ import GoogleMapReact from 'google-map-react';
 import Axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloud, faCloudRain, faSnowflake, faCloudSun, faCloudSunRain} from '@fortawesome/free-solid-svg-icons'
+import Tooltip from '@material-ui/core/Tooltip';
 
-const AnyReactComponent = ({ temp }) => <div>{list[temp]}</div>;
+const AnyReactComponent = ({value}) =>  <Tooltip title={<React.Fragment>
+  Cidade: {value.cidade} <br /> 
+  Descricao: {value.descricao}<br /> 
+  Grau: {value.graus}<br /> 
+  temp: {value.temp}<br /> 
+</React.Fragment>}><div>{list[value.temp]}</div></Tooltip>;
+
+ 
 
 const list = {
   Clouds:   <FontAwesomeIcon icon={faCloud}  color="#9FF5F7"/>,
@@ -41,6 +47,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(JSON.stringify(this.state.dados));
     return (
       <div>
         <Login open={this.state.open} />
@@ -56,7 +63,13 @@ class App extends Component {
                   <AnyReactComponent
                     lat={values.Cordenadas.lat}
                     lng={values.Cordenadas.lon}
-                    temp={values.Clima}
+                    value={{
+                      temp: values.Clima,
+                      cidade: values.Cidade,
+                      descricao: values.Descricao,
+                      graus: values.temperatura
+                    }
+                  }
                   />
                 );
               })}

@@ -31,10 +31,14 @@ const CadastroScene = (props) => {
 
     return (
       <div>
+      <div>
         <TextField
           id="outlined-name"
           label="Nome"
           value={nome}
+          InputLabelProps={{
+            shrink: true,
+          }}
           onChange={handleChange(setNome)}
           margin="normal"
           variant="outlined"
@@ -44,6 +48,9 @@ const CadastroScene = (props) => {
           label="password"
           value={senha}
           type='password'
+          InputLabelProps={{
+            shrink: true,
+          }}
           onChange={handleChange(setSenha)}
           margin="normal"
           variant="outlined"
@@ -52,6 +59,9 @@ const CadastroScene = (props) => {
           id="outlined-name"
           label="Email"
           value={email}
+          InputLabelProps={{
+            shrink: true,
+          }}
           onChange={handleChange(setEmail)}
           margin="normal"
           variant="outlined"
@@ -59,6 +69,9 @@ const CadastroScene = (props) => {
         <TextField
           id="outlined-name"
           label="CPF"
+          InputLabelProps={{
+            shrink: true,
+          }}
           value={cpf}
           onChange={handleChange(setCpf)}
           margin="normal"
@@ -68,14 +81,22 @@ const CadastroScene = (props) => {
           id="outlined-name"
           label="Endereço"
           value={endereco}
+          InputLabelProps={{
+            shrink: true,
+          }}
           onChange={handleChange(setEnd)}
           margin="normal"
           variant="outlined"
         />
-        <Button size="small" onClick={sendCadastro}>
-          Enviar
-        </Button>
+        
       </div>  
+        <Button size="small" onClick={sendCadastro}>
+        Enviar
+      </Button>
+      <Button size="small" onClick={props.action}>
+        Login
+      </Button>
+      </div>
     );
 } 
 export default CadastroScene;
