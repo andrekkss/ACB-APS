@@ -15,6 +15,7 @@ const AnyReactComponent = ({value}) =>  <Tooltip title={<React.Fragment>
   Descricao: {value.descricao}<br /> 
   Grau: {value.graus}<br /> 
   temp: {value.temp}<br /> 
+  pressao do ar: {value.pressao}<br /> 
 </React.Fragment>}><div>{list[value.temp]}</div></Tooltip>;
 
  
@@ -47,7 +48,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.state.dados));
     return (
       <div>
         <Login open={this.state.open} />
@@ -67,7 +67,8 @@ class App extends Component {
                       temp: values.Clima,
                       cidade: values.Cidade,
                       descricao: values.Descricao,
-                      graus: values.temperatura
+                      graus: values.temperatura,
+                      pressao: values.pressao
                     }
                   }
                   />

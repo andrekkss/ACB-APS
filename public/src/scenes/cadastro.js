@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Service from '../service/cadastro.service';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Snack from '../component/snackbar/snackbar';
 
 const CadastroScene = (props) => {
     const [ nome,  setNome ] = useState('');
@@ -9,7 +10,9 @@ const CadastroScene = (props) => {
     const [ email, setEmail] = useState('');
     const [ cpf,   setCpf]   = useState('');
     const [ endereco, setEnd]= useState('');
-   
+    const [ msg, setMsg]     = useState('');
+    const [ snack, setSnack] = useState(false);
+
     const handleChange = state => event => {
         state(event.target.value);
     };
@@ -25,7 +28,14 @@ const CadastroScene = (props) => {
         }
       }
       Service.postCadastro(data)
-      .then(response => console.log(response))
+      .then(response => {
+        setMsg(response.data.msg) || setSnack(true)
+        setTimeout(
+          function() {
+            setSnack(false)
+          }.bind(this),
+          2500);
+      })
       .catch(err =>  console.log(err));
     }
 
@@ -96,6 +106,9 @@ const CadastroScene = (props) => {
       <Button size="small" onClick={props.action}>
         Login
       </Button>
+        {snack &&
+         <Snack msg={msg}/>
+        }
       </div>
     );
 } 

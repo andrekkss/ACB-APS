@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import local from '../../service/local.store';
 import Button from '@material-ui/core/Button';
 import Cadastro from '../../scenes/cadastro';
+import Snack from '../snackbar/snackbar';
 
 const styles = theme => ({
   paper: {
@@ -27,7 +28,9 @@ class SimpleModal extends React.Component {
     password: '',
     local: false,
     open: true,
-    cadastro: false
+    cadastro: false,
+    snack: false,
+    msg: ''
   }
 
   async componentDidMount(){
@@ -52,7 +55,20 @@ class SimpleModal extends React.Component {
     const resp = localStorage.getItem(values.user);
     const validation = JSON.parse(resp);
     if(validation.online == true){
-      this.setState({ open: false, local: true });
+      this.setState({ open: false, local: true, snack: true, msg: validation.msg });
+      setTimeout(
+        function() {
+            this.setState({ snack: false });
+        }.bind(this),
+        2500
+    )
+    }else{
+      this.setState({ snack: true, msg: validation.msg });
+      setTimeout(
+        function() {
+            this.setState({ snack: false });
+        }.bind(this),
+        2500)
     }
   }
   
@@ -112,6 +128,9 @@ class SimpleModal extends React.Component {
             }
           </div>
         </Modal>
+        {this.state.snack &&
+         <Snack msg={this.state.msg}/>
+        }
       </div>
     );
   }
