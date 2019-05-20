@@ -5,7 +5,6 @@ var logger = require('morgan');
 var service = require('./src/service/requisicao');
 var CIDADES_JSON = require('./cidades.json');
 
-const cidades = ['Madrid', 'Rio de Janeiro', 'Brasilia', 'Porto Alegre'];
 //router for express
 var indexRouter = require('./src/routes/index');
 
