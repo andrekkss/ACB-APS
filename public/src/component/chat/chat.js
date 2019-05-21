@@ -5,7 +5,7 @@ import { Widget, addResponseMessage} from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
 import './chat.css';
 
-const socket = openSocket('http://localhost:3001/', {transports: ['websocket']});
+const socket = openSocket(`http://${process.env.REACT_APP_IP}:3001/`, {transports: ['websocket']});
 socket.on("chat", (user, mensagem) => {  addResponseMessage(mensagem) });
 
 const Chat = (props) => {
