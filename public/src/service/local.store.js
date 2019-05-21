@@ -23,7 +23,8 @@ const loginStore = async (values) => {
 }
 
 const authentic = async (user, password) => {
-    const endPoint = `http://localhost:3001/login?user=${user}&password=${password}`;
+    const endPoint = `http://${process.env.REACT_APP_IP}:3001/login?user=${user}&password=${password}`;
+
     try{
        return await axios.get(endPoint);
     }catch(err){

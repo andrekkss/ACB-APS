@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const endPoint =  'http://localhost:3001/cadastro';
+const endPoint =    `http://${process.env.REACT_APP_IP}:3001/cadastro`;
 
 const postCadastro = async ( data ) => {
     try{

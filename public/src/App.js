@@ -44,7 +44,8 @@ class App extends Component {
   };
 
   async componentDidMount(){
-    await Axios.get('http://localhost:3001/getAllClima').then(values => this.setState({ dados: values.data})).catch(err =>  console.log(err));
+    await Axios.get(`http://${process.env.REACT_APP_IP }:3001/getAllClima`).then(values => this.setState({ dados: values.data})).catch(err =>  console.log(err));
+
   }
 
   render() {
