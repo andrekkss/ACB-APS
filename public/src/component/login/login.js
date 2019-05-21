@@ -12,7 +12,7 @@ const styles = theme => ({
   paper: {
     position: 'absolute',
     left:'47%',
-    top:'60%',
+    top:'40%',
     margin:'-200px',
     width: theme.spacing.unit * 50,
     backgroundColor: 'white',

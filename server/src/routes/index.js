@@ -45,7 +45,7 @@ socket.get('/login', async function(req, res, next){
 socket.post('/cadastro', async function(req, res, next){
   try{ 
     const user = await UserModel.create(req.body.cadastro);
-    res.send({ user, msg: 'Cadastro efetuado com sucessoos'});
+    res.send({ user, msg: 'Cadastro efetuado com sucesso'});
   }catch(err){
     console.log(err);
     res.send({ err });
